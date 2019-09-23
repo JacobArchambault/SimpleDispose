@@ -9,21 +9,13 @@ namespace SimpleDispose
         {
             Console.WriteLine("***** Fun with Dispose *****\n");
             // Create a disposable object and call Dispose() to free any internal resources.
-            MyResourceWrapper rw = new MyResourceWrapper();
-            if (rw is IDisposable)
-                rw.Dispose();
-            DisposeFileStream();
+            using (MyResourceWrapper rw = new MyResourceWrapper(), rw2 = new MyResourceWrapper())
+            {
+                // Use rw and rw2 objects
+            }
 
             Console.ReadLine();
         }
 
-        static void DisposeFileStream()
-        {
-            FileStream fs = new FileStream("myFile.txt", FileMode.OpenOrCreate);
-
-            // These method calls do the same thing. Confusing, to say the least.
-            fs.Close();
-            fs.Dispose();
-        }
     }
 }
